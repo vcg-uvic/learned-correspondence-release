@@ -1,4 +1,11 @@
 
+# Learning to Find Good Correspondences (CVPR 2018 Oral)
+
+This repository is a reference implementation for K. Yi\*, E. Trulls\*, Y. Ono,
+V. Lepetit, M. Salzmann, and P. Fua, "Learning to Find Good Correspondences",
+CVPR 2018 (* equal contributions). If you use this code in your research,
+please cite the paper.
+
 # Installation
 
 This code base is based on Python3. For more details on the required libraries,

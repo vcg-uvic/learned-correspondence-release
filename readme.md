@@ -1,5 +1,5 @@
 
-# Learning to Find Good Correspondences (CVPR 2018 Oral)
+# Learning to Find Good Correspondences (CVPR 2018)
 
 This repository is a reference implementation for K. Yi\*, E. Trulls\*, Y. Ono,
 V. Lepetit, M. Salzmann, and P. Fua, "Learning to Find Good Correspondences",

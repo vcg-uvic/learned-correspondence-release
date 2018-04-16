@@ -1,0 +1,7 @@
+.DS_Store
+.pyc
+__pycache__
+/data_dump
+/logs
+data_dump_lift
+datasets

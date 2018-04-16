@@ -84,11 +84,12 @@ eight-point algorithm. We welcome contributions for untying this mess we have.
 Once run, you'll find a TensorBoard log files and some txt files that contain
 the results of the expriments.
 
-You can also download the [fountain]()
-
 
 # Notes on implementation
 
 For the dataset generation, we used OpenCV SIFT with fast-math flag on. We've
 noticed that when using `opencv-contrib-python` package from pip, you get
 different results, slightly different from the paper.
+
+
+

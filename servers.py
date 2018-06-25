@@ -31,12 +31,12 @@
 
 # Code:
 
-import os
+import socket
 
 
 def is_computecanada():
 
-    hostname = os.getenv("HOSTNAME")
+    hostname = socket.gethostname()
 
     check = False
     check += hostname.startswith("cedar")
@@ -48,7 +48,7 @@ def is_computecanada():
 
 def is_vcg_uvic():
 
-    hostname = os.getenv("HOSTNAME")
+    hostname = socket.gethostname()
 
     check = False
     check += hostname.startswith("kingwood")
@@ -58,7 +58,7 @@ def is_vcg_uvic():
 
 def is_cvlab_epfl():
 
-    hostname = os.getenv("HOSTNAME")
+    hostname = socket.gethostname()
 
     check = False
     check += hostname.startswith("icc")

@@ -435,7 +435,7 @@ class MyNetwork(object):
             # Run optimization
             try:
                 res = self.sess.run(fetch, feed_dict=feed_dict)
-            except ValueError, tf.errors.InvalidArgumentError:
+            except (ValueError, tf.errors.InvalidArgumentError):
                 print("Backward pass had numerical errors. "
                       "This training batch is skipped!")
                 continue

@@ -91,7 +91,7 @@ data_arg.add_argument(
     "to match the expected input for methods that expect a square input")
 data_arg.add_argument(
     "--use_lift", type=str2bool, default=False, help=""
-    "if this is set to true, we expect lift to be dumped alread for all "
+    "if this is set to true, we expect lift to be dumped already for all "
     "images.")
 
 

@@ -159,9 +159,9 @@ def bn_act(linout, perform_gcn, perform_bn, activation_fn, is_training,
         with tf.variable_scope("bn"):
             linout = tf.layers.batch_normalization(
                 inputs=linout,
-                center=True, scale=True,
+                center=False, scale=False,
                 training=is_training,
-                trainable=False,
+                trainable=True,
                 axis=axis,
             )
 

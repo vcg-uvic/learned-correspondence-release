@@ -346,6 +346,9 @@ class MyNetwork(object):
 
         """
 
+        print("Initializing...")
+        self.sess.run(tf.global_variables_initializer())
+        
         # ----------------------------------------
         # Resume data if it already exists
         latest_checkpoint = tf.train.latest_checkpoint(
@@ -382,8 +385,6 @@ class MyNetwork(object):
 
         # ----------------------------------------
         # The training loop
-        print("Initializing...")
-        self.sess.run(tf.global_variables_initializer())
         batch_size = self.config.train_batch_size
         max_iter = self.config.train_iter
         for step in trange(step, max_iter, ncols=self.config.tqdm_width):

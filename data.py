@@ -316,8 +316,10 @@ def load_data(config, var_mode):
     # Now load data.
     var_name_list = [
         "xs", "ys", "Rs", "ts",
-        "img1s", "cx1s", "cy1s", "f1s",
-        "img2s", "cx2s", "cy2s", "f2s",
+        #"img1s", 
+        "cx1s", "cy1s", "f1s",
+        #"img2s", 
+        "cx2s", "cy2s", "f2s",
     ]
 
     data_folder = config.data_dump_prefix

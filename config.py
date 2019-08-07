@@ -413,6 +413,10 @@ def setup_dataset(dataset_name):
         data_dir += "hotel_pedraza---hotel_room_pedraza_2012_nov_25-maxpairs-10000-random---skip-10-dilate-25/"
         geom_type = "Calibration"
         vis_th = 0.5
+    else:
+        data_dir += dataset_name
+        geom_type = "Calibration"
+        vis_th = 100
 
     return data_dir, geom_type, vis_th
 

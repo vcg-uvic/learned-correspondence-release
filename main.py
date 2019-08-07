@@ -73,7 +73,7 @@ def main(config):
         # visualize more than what we did for training. For training we choose
         # minimal reporting to not slow down.
         data = {}
-        data["valid"] = load_data(config, "valid")
+        #data["valid"] = load_data(config, "valid")
         data["test"] = load_data(config, "test")
 
         # Run train

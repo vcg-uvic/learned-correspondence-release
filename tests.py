@@ -388,7 +388,7 @@ def test_process(mode, sess,
     inlier_ransac_us = []
 
     if mode == "test":
-        print("[{}] {}: Start testing".format(config.data_tr, time.asctime()))
+        print("[{}] {}: Start testing".format(config.data_te, time.asctime()))
 
     # Unpack some references
     xs = data["xs"]

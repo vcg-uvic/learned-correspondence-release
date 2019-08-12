@@ -336,17 +336,18 @@ def eval_decompose_8points(p1s, p2s, dR, dt, mask=None, method=None):
     return err_q, err_t, loss_q, loss_t, np.sum(num_inlier), mask_updated
 
 
-def dump_val_res(img1, img2, x1, x2, mask_before, mask_after, cx1, cy1, f1,
+def dump_val_res(#img1, img2, 
+                 x1, x2, mask_before, mask_after, cx1, cy1, f1,
                  cx2, cy2, f2, R, t, dump):
 
     if not os.path.exists(dump):
         os.makedirs(dump)
 
     # Images
-    img1 = img1.transpose(1, 2, 0)
-    img2 = img2.transpose(1, 2, 0)
-    cv2.imwrite(os.path.join(dump, "img1.png"), img1)
-    cv2.imwrite(os.path.join(dump, "img2.png"), img2)
+    #img1 = img1.transpose(1, 2, 0)
+    #img2 = img2.transpose(1, 2, 0)
+    #cv2.imwrite(os.path.join(dump, "img1.png"), img1)
+    #cv2.imwrite(os.path.join(dump, "img2.png"), img2)
 
     dump_dict = {}
     dump_dict["x1"] = x1
@@ -387,18 +388,18 @@ def test_process(mode, sess,
     inlier_ransac_us = []
 
     if mode == "test":
-        print("[{}] {}: Start testing".format(config.data_tr, time.asctime()))
+        print("[{}] {}: Start testing".format(config.data_te, time.asctime()))
 
     # Unpack some references
     xs = data["xs"]
     ys = data["ys"]
     Rs = data["Rs"]
     ts = data["ts"]
-    img1s = data["img1s"]
+    #img1s = data["img1s"]
     cx1s = data["cx1s"]
     cy1s = data["cy1s"]
     f1s = data["f1s"]
-    img2s = data["img2s"]
+    #img2s = data["img2s"]
     cx2s = data["cx2s"]
     cy2s = data["cy2s"]
     f2s = data["f2s"]
@@ -557,8 +558,8 @@ def test_process(mode, sess,
 
             if config.vis_dump:
                 dump_val_res(
-                    img1s[cur_val_idx],
-                    img2s[cur_val_idx],
+                    #img1s[cur_val_idx],
+                    #img2s[cur_val_idx],
                     _x1, _x2, _mask_before, _mask_after,
                     cx1s[cur_val_idx],
                     cy1s[cur_val_idx],
@@ -946,8 +947,8 @@ def comp_process(mode, data, res_dir, config):
 
                     if config.vis_dump:
                         dump_val_res(
-                            img1s[_idx],
-                            img2s[_idx],
+                            #img1s[_idx],
+                            #img2s[_idx],
                             _x1, _x2, _mask, _mask_after,
                             cx1s[_idx],
                             cy1s[_idx],

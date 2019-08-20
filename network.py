@@ -144,7 +144,7 @@ class MyNetwork(object):
             e, v = tf.self_adjoint_eig(XwX)
             self.e_hat = tf.reshape(v[:, :, 0], (x_shp[0], 9))
             # Make unit norm just in case
-            self.e_hat /= tf.norm(self.e_hat, axis=1, keep_dims=True)
+            self.e_hat /= tf.norm(self.e_hat, axis=1, keepdims=True)
 
     def _build_loss(self):
         """Build our cross entropy loss."""
@@ -161,7 +161,7 @@ class MyNetwork(object):
                 tf.reshape(tf_skew_symmetric(self.t_in), (x_shp[0], 3, 3)),
                 tf.reshape(self.R_in, (x_shp[0], 3, 3))
             ), (x_shp[0], 9))
-            e_gt = e_gt_unnorm / tf.norm(e_gt_unnorm, axis=1, keep_dims=True)
+            e_gt = e_gt_unnorm / tf.norm(e_gt_unnorm, axis=1, keepdims=True)
 
             # e_hat = tf.reshape(tf.matmul(
             #     tf.reshape(t_hat, (-1, 3, 3)),

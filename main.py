@@ -79,6 +79,14 @@ def main(config):
         # Run train
         mynet.test(data)
 
+    elif config.run_mode == "test_simple":
+        
+        data = {}
+        data["valid"] = load_data(config, "valid")
+        data["test"] = load_data(config, "test")
+        
+        mynet.test_simple(data)        
+
     elif config.run_mode == "comp":
 
         # This mode is for running comparison experiments. While cleaning the

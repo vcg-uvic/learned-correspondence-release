@@ -496,11 +496,7 @@ class MyNetwork(object):
 
         # Run Test
         cur_global_step = 0     # dummy
-        if self.config.vis_dump:
-            test_mode_list = ["test"]
-        else:
-            # test_mode_list = ["valid", "test"]
-            test_mode_list = ["test"]  # Only run testing
+        test_mode_list = ["test"]  # opts: "test", "val" 
         for test_mode in test_mode_list:
             test_process(
                 test_mode, self.sess,
@@ -511,6 +507,25 @@ class MyNetwork(object):
                 None, None, None,
                 self.logits, self.e_hat, self.loss, data[test_mode],
                 getattr(self, "res_dir_" + test_mode[:2]), self.config)
+
+    def test_simple(self, data):
+        from evaluate import test_simple
+
+        # Check if model exists
+        if not os.path.exists(self.save_file_best + ".index"):
+            print("Model File {} does not exist! Quiting".format(
+                self.save_file_best))
+            exit(1)
+
+        # Restore model
+        print("Restoring from {}...".format(
+            self.save_file_best))
+        self.saver_best.restore(
+            self.sess,
+            self.save_file_best)
+
+        # Eval on test data
+        eval_res = test_simple(self, data['test'])
 
     def comp(self, data):
         """Goodie for competitors"""

@@ -160,7 +160,9 @@ def test_simple(net, data):
     
     # Evaluate predictions
     eval_res = eval_preds(xs, ys, Rs, ts, e_preds, y_preds, config.obj_top_k)
-    sav_res_path = os.path.join(config.test_log_dir, '{}_test_res.npy'.format(config.data_te))
-    np.save(sav_res_path, eval_res)
-    print('Save final results to ', sav_res_path)
+    
+    if config.sav_res_npy:
+        sav_res_path = os.path.join(config.test_log_dir, '{}_test_res.npy'.format(config.data_te))
+        np.save(sav_res_path, eval_res)
+        print('Save final results to ', sav_res_path)
     return eval_res

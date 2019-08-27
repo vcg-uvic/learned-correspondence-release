@@ -144,7 +144,7 @@ class MyNetwork(object):
             e, v = tf.self_adjoint_eig(XwX)
             self.e_hat = tf.reshape(v[:, :, 0], (x_shp[0], 9))
             # Make unit norm just in case
-            self.e_hat /= tf.norm(self.e_hat, axis=1, keep_dims=True)
+            self.e_hat /= tf.norm(self.e_hat, axis=1, keepdims=True)
 
     def _build_loss(self):
         """Build our cross entropy loss."""
@@ -161,7 +161,7 @@ class MyNetwork(object):
                 tf.reshape(tf_skew_symmetric(self.t_in), (x_shp[0], 3, 3)),
                 tf.reshape(self.R_in, (x_shp[0], 3, 3))
             ), (x_shp[0], 9))
-            e_gt = e_gt_unnorm / tf.norm(e_gt_unnorm, axis=1, keep_dims=True)
+            e_gt = e_gt_unnorm / tf.norm(e_gt_unnorm, axis=1, keepdims=True)
 
             # e_hat = tf.reshape(tf.matmul(
             #     tf.reshape(t_hat, (-1, 3, 3)),
@@ -496,11 +496,7 @@ class MyNetwork(object):
 
         # Run Test
         cur_global_step = 0     # dummy
-        if self.config.vis_dump:
-            test_mode_list = ["test"]
-        else:
-            # test_mode_list = ["valid", "test"]
-            test_mode_list = ["test"]  # Only run testing
+        test_mode_list = ["test"]  # opts: "test", "val" 
         for test_mode in test_mode_list:
             test_process(
                 test_mode, self.sess,
@@ -511,6 +507,25 @@ class MyNetwork(object):
                 None, None, None,
                 self.logits, self.e_hat, self.loss, data[test_mode],
                 getattr(self, "res_dir_" + test_mode[:2]), self.config)
+
+    def test_simple(self, data):
+        from evaluate import test_simple
+
+        # Check if model exists
+        if not os.path.exists(self.save_file_best + ".index"):
+            print("Model File {} does not exist! Quiting".format(
+                self.save_file_best))
+            exit(1)
+
+        # Restore model
+        print("Restoring from {}...".format(
+            self.save_file_best))
+        self.saver_best.restore(
+            self.sess,
+            self.save_file_best)
+
+        # Eval on test data
+        eval_res = test_simple(self, data['test'])
 
     def comp(self, data):
         """Goodie for competitors"""

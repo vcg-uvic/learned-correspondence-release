@@ -168,6 +168,9 @@ train_arg.add_argument(
     "--test_log_dir", type=str, default="", help=""
     "which directory to test inside results")
 train_arg.add_argument(
+    "--sav_res_npy", action='store_true', help=""
+    "save results as a .npy file when run_mode=test_simple")
+train_arg.add_argument(
     "--val_intv", type=int, default=5000, help=""
     "validation interval")
 train_arg.add_argument(

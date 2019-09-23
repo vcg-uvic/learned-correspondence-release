@@ -189,7 +189,7 @@ def compute_error_for_find_essential(x1, x2, E):
 
 
 def ourFindEssentialMat(np1, np2, method=cv2.RANSAC, iter_num=1000,
-                        threshold=0.01, probs=None, weighted=False,
+                        threshold=0.001, probs=None, weighted=False,
                         use_prob=True):
     """Python implementation of OpenCV findEssentialMat.
 
@@ -354,10 +354,10 @@ def eval_decompose(p1s, p2s, dR, dt, mask=None, method=cv2.LMEDS, probs=None,
     if p1s_good.shape[0] >= 5:
         if probs is None and method != "MLESAC":
             E, mask_new = cv2.findEssentialMat(
-                p1s_good, p2s_good, method=method, threshold=0.01)
+                p1s_good, p2s_good, method=method, threshold=0.001)
         else:
             E, mask_new = ourFindEssentialMat(
-                p1s_good, p2s_good, method=method, threshold=0.01,
+                p1s_good, p2s_good, method=method, threshold=0.001,
                 probs=probs_good, weighted=weighted, use_prob=use_prob)
             
         if E is not None:

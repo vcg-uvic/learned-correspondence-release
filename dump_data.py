@@ -144,6 +144,8 @@ def make_xy(num_sample, pairs, kp, z, desc, img, geom, vis, depth, geom_type,
                     # Correct focals
                     fx = parse_geom(geom, geom_type)["K"][i, 0, 0]
                     fy = parse_geom(geom, geom_type)["K"][i, 1, 1]
+                    
+                    # Coordinate Normalization
                     kp[i] = (
                         xy - np.array([[cx, cy]])
                     ) / np.asarray([[fx, fy]])

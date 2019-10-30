@@ -75,6 +75,9 @@ Or if you simply want to test the pretrained model on your dataset, you can:
 
 ```
 ./main.py --run_mode=test --res_dir="./" --log_dir="models" --test_log_dir="results" --data_tr="st_peters.brown_bm_3_05" --data_va="reichstag" --data_te="reichstag" 
+
+# Or use following command to save an additional numpy structured output (Thanks to GrumpyZhou)
+./main.py --run_mode=test_simple --res_dir="./" --log_dir="models" --test_log_dir="results"  --data_va="reichstag" --data_te="reichstag"
 ```
 
 This time, it should only take about 30 seconds since `reichstag` is tiny, but

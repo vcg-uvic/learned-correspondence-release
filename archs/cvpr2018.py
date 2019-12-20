@@ -32,7 +32,7 @@
 
 import tensorflow as tf
 
-from ops import conv1d_layer, conv1d_resnet_block
+from ..ops import conv1d_layer, conv1d_resnet_block
 
 
 def build_graph(x_in, is_training, config):

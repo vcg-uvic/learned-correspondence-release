@@ -34,13 +34,14 @@ import datetime
 import os
 import sys
 import time
-
+from tqdm import tqdm
 import numpy as np
 from parse import parse
 import cv2
 from six.moves import xrange
-from utils import loadh5, saveh5
-from geom import *
+
+from .utils import loadh5, saveh5
+from .geom import *
 
 def dump_val_res(#img1, img2, 
                  x1, x2, mask_before, mask_after, cx1, cy1, f1,
@@ -93,6 +94,7 @@ def test_process(mode, sess,
     inlier_ransac = []
     inlier_ransac_us = []
 
+    mask_dict = {}
     if mode == "test":
         print("[{}] {}: Start testing".format(config.data_te, time.asctime()))
 
@@ -120,7 +122,7 @@ def test_process(mode, sess,
         ]
     else:
         test_list += [
-            "ours_ransac",
+            # "ours_ransac",
             # "ours_usac5point",
             # "ours_usac8point",
             # "ours_usacnolo5point",
@@ -144,7 +146,7 @@ def test_process(mode, sess,
     e_hats = []
     y_hats = []
     # Run every test independently. might have different number of keypoints
-    for idx_cur in xrange(num_sample):
+    for idx_cur in tqdm(xrange(num_sample)):
         # Use minimum kp in batch to construct the batch
         _xs = np.array(
             xs[idx_cur][:, :, :]
@@ -184,7 +186,7 @@ def test_process(mode, sess,
         e_hats.append(res["e_hat"])
         y_hats.append(res["y_hat"])
 
-    for cur_val_idx in xrange(num_sample):
+    for cur_val_idx in tqdm(xrange(num_sample)):
         _xs = xs[cur_val_idx][:, :, :].reshape(1, 1, -1, 4)
         _ys = ys[cur_val_idx][:, :].reshape(1, -1, 2)
         _dR = Rs[cur_val_idx]
@@ -204,6 +206,9 @@ def test_process(mode, sess,
         _valid_th = np.sort(_valid)[::-1][config.obj_top_k]
         _relu_tanh = np.maximum(0, np.tanh(_valid))
 
+        
+        _mask_before = _valid >= max(0, _valid_th)
+        mask_dict[cur_val_idx] = _mask_before
         # For every things to test
         _use_prob = True
         for _test in test_list:
@@ -262,6 +267,7 @@ def test_process(mode, sess,
             eval_res["err_t"][_test][cur_val_idx] = _err_t
             eval_res["num"][_test][cur_val_idx] = _num_inlier
 
+            
             if config.vis_dump:
                 dump_val_res(
                     #img1s[cur_val_idx],
@@ -372,15 +378,15 @@ def test_process(mode, sess,
             with open(ofn, "w") as ofp:
                 ofp.write("{}\n".format(np.mean(qt_acc[:_idx_th])))
 
-    summary_writer.add_summary(
-        tf.Summary(value=summaries), global_step=cur_global_step)
+    # summary_writer.add_summary(
+    #     tf.Summary(value=summaries), global_step=cur_global_step)
 
     if mode == "test":
         print("[{}] {}: End testing".format(
             config.data_tr, time.asctime()))
 
     # Return qt_auc20 of ours
-    return ret_val
+    return ret_val, mask_dict
 
 
 def comp_process(mode, data, res_dir, config):

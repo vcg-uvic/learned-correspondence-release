@@ -258,7 +258,7 @@ def ourFindEssentialMat(np1, np2, method=cv2.RANSAC, iter_num=1000,
 
 
 def evaluate_R_t(R_gt, t_gt, R, t, q_gt=None):
-    from transformations import quaternion_from_matrix
+    from .transformations import quaternion_from_matrix
 
     t = t.flatten()
     t_gt = t_gt.flatten()

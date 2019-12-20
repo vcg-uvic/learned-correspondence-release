@@ -39,8 +39,8 @@ import tensorflow as tf
 from parse import parse
 from tqdm import trange
 
-from ops import tf_skew_symmetric
-from tests import comp_process, test_process
+from .ops import tf_skew_symmetric
+from .tests import comp_process, test_process
 
 
 class MyNetwork(object):
@@ -115,7 +115,7 @@ class MyNetwork(object):
 
             # -------------------- Network archintecture --------------------
             # Import correct build_graph function
-            from archs.cvpr2018 import build_graph
+            from .archs.cvpr2018 import build_graph
             # Build graph
             print("Building Graph")
             self.logits = build_graph(self.x_in, self.is_training, self.config)
@@ -454,7 +454,7 @@ class MyNetwork(object):
             if b_validate:
                 va_res = 0
                 cur_global_step = res["global_step"]
-                va_res = test_process(
+                va_res, _ = test_process(
                     "valid", self.sess, cur_global_step,
                     self.summary_op, self.summary_va,
                     self.x_in, self.y_in, self.R_in, self.t_in,
@@ -498,7 +498,7 @@ class MyNetwork(object):
         cur_global_step = 0     # dummy
         test_mode_list = ["test"]  # opts: "test", "val" 
         for test_mode in test_mode_list:
-            test_process(
+            _, mask_dict = test_process(
                 test_mode, self.sess,
                 cur_global_step,
                 self.summary_op, getattr(self, "summary_" + test_mode[:2]),
@@ -507,6 +507,7 @@ class MyNetwork(object):
                 None, None, None,
                 self.logits, self.e_hat, self.loss, data[test_mode],
                 getattr(self, "res_dir_" + test_mode[:2]), self.config)
+        return mask_dict
 
     def test_simple(self, data):
         from evaluate import test_simple

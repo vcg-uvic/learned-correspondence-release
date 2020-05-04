@@ -526,6 +526,22 @@ class MyNetwork(object):
 
         # Eval on test data
         eval_res = test_simple(self, data['test'])
+        
+    def load_model(self):
+        # Check if model exists
+        if not os.path.exists(self.save_file_best + ".index"):
+            print("Model File {} does not exist! Quiting".format(
+                self.save_file_best))
+            exit(1)
+
+        # Restore model
+        print("Restoring from {}...".format(
+            self.save_file_best))
+        self.saver_best.restore(
+            self.sess,
+            self.save_file_best)
+        print("Model File {} loaded!".format(
+                self.save_file_best))
 
     def comp(self, data):
         """Goodie for competitors"""

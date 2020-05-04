@@ -166,3 +166,36 @@ def test_simple(net, data):
         np.save(sav_res_path, eval_res)
         print('Save final results to ', sav_res_path)
     return eval_res
+
+def test_pair(net, xs):
+    import tensorflow as tf
+    sess = net.sess
+    x, y, R, t = net.x_in, net.y_in, net.R_in, net.t_in
+    is_training = net.is_training
+    logits_mean, e_hat, loss =  net.logits, net.e_hat, net.loss
+
+    res_dir = net.res_dir_te
+    config = net.config  
+
+    # Use minimum kp in batch to construct the batch
+    _xs = xs.reshape(1, 1, -1, 4)
+    _ys = np.zeros((1, _xs.shape[2], 2))
+    _dR = np.zeros((1, 9))
+    _dt = np.zeros((1, 3))
+
+    # Create random permutation indices
+    feed_dict = {
+        x: _xs,
+        y: _ys,
+        R: _dR,
+        t: _dt,
+        is_training:  config.net_bn_test_is_training,
+    }
+    fetch = {
+        "e_hat": e_hat,
+        "y_hat": logits_mean,
+        "loss": loss
+    }
+    res = sess.run(fetch, feed_dict=feed_dict)
+    
+    return res["y_hat"]

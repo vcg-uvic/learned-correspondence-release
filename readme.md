@@ -17,13 +17,13 @@ pip install -r requirements.txt
 # Preparing data
 
 Download the
-[brown_bm](http://webhome.cs.uvic.ca/~kyi/files/2018/learned-correspondence/brown_bm_3---brown_bm_3-maxpairs-10000-random---skip-10-dilate-25.tar.gz)
+[brown_bm](https://www.cs.ubc.ca/research/kmyi_data/files/2018/learned-correspondence/brown_bm_3---brown_bm_3-maxpairs-10000-random---skip-10-dilate-25.tar.gz)
 sequence and
-[st_peters](http://webhome.cs.uvic.ca/~kyi/files/2018/learned-correspondence/st_peters_square.tar.gz)
+[st_peters](https://www.cs.ubc.ca/research/kmyi_data/files/2018/learned-correspondence/st_peters_square.tar.gz)
 sequence and extract them in the datasets directory. For example, for
 `st_peters` you should have a directory looking like
 `./datasets/st_peters_square/train`. Also download
-[reichstag](http://webhome.cs.uvic.ca/~kyi/files/2018/learned-correspondence/reichstag.tar.gz)
+[reichstag](https://www.cs.ubc.ca/research/kmyi_data/files/2018/learned-correspondence/reichstag.tar.gz)
 dataset for testing, which is quite small!
 
 Once the datasets are downloaded, run `dump_data.py` to prepare the
